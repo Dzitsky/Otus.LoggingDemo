@@ -9,13 +9,13 @@ namespace Otus.LoggingDemo.Controllers
     public class LogController : ControllerBase
     {
         private readonly ILogger<LogController> _logger;
-        private readonly ILogger<string> _slogger;
+        //private readonly ILogger<string> _slogger;
 
         public LogController(
             ILogger<LogController> logger,
             ILoggerFactory factory)
         {
-            _slogger = factory.CreateLogger<string>();
+            //_slogger = factory.CreateLogger<string>();
             _logger = logger;
         }
 
@@ -28,15 +28,15 @@ namespace Otus.LoggingDemo.Controllers
             _logger.LogCritical("Что-то критичное!");
             _logger.LogTrace("И не очень");
             
-            _slogger.LogError("Я slogger");
+            //_slogger.LogError("Я slogger");
 
             return Ok(new { Ok = true });
         }
 
-                [HttpGet("fail")]
+        [HttpGet("fail")]
         public IActionResult Fail()
         {
-            //throw new Exception("Я очень серьезная ошибка!");
+            throw new Exception("Я очень серьезная ошибка!");
 
             try
             {

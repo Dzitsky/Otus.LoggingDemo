@@ -19,40 +19,44 @@ namespace Otus.LoggingDemo
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
 
-            .ConfigureLogging(options =>
-            {
-                options.AddEventLog();
-            })
+                /*
+                .ConfigureLogging(options =>
+                {
+                    options.AddEventLog();
+                })
+                */
+                /*
+                .UseSerilog((context, services, configuration) =>
+                    configuration
+                        .ReadFrom.Configuration(context.Configuration)
+                        .Enrich.FromLogContext()
+                        .WriteTo.Console()
 
-            .UseSerilog((context, services, configuration) =>            
-                configuration
-                    .ReadFrom.Configuration(context.Configuration)
-                    .Enrich.FromLogContext()
-                    .WriteTo.Console()
+                        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+                        {
 
-                    .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
-                     {
-
-                         FailureCallback = e =>
-                         {
-                             Console.WriteLine("Unable to submit event " + e.Exception);
-                         },
-                         FailureSink = new FileSink("./failures.txt", new JsonFormatter(), null),
+                            FailureCallback = e =>
+                            {
+                                Console.WriteLine("Unable to submit event " + e.Exception);
+                            },
+                            FailureSink = new FileSink("./failures.txt", new JsonFormatter(), null),
 
 
-                         TypeName = null,
+                            TypeName = null,
 
-                         IndexFormat = "otus-log",
-                         AutoRegisterTemplate = true,
-                         EmitEventFailure = EmitEventFailureHandling.ThrowException | EmitEventFailureHandling.RaiseCallback | EmitEventFailureHandling.WriteToSelfLog
-                     })
+                            IndexFormat = "otus-log",
+                            AutoRegisterTemplate = true,
+                            EmitEventFailure = EmitEventFailureHandling.ThrowException | EmitEventFailureHandling.RaiseCallback | EmitEventFailureHandling.WriteToSelfLog
+                        })
 
-                    .WriteTo.Seq("http://localhost:5341")
-                     )
+                        .WriteTo.Seq("http://localhost:5341")
+                         )
+                */
 
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }
+                );
     }
 }
