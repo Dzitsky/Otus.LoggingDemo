@@ -21,7 +21,7 @@ namespace Otus.LoggingDemo.Controllers
 
         [HttpGet]
         public IActionResult LogThings()
-        {
+        {            
             _logger.LogInformation("Я логирую обычный текст");
             _logger.LogWarning("Я Warning");
             _logger.LogError("А я - ошибку!");
@@ -42,9 +42,9 @@ namespace Otus.LoggingDemo.Controllers
             {
                 throw new Exception("Err!");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                _logger.Log(LogLevel.Error, "Error!");
+                _logger.Log(LogLevel.Error, "Error!", e.Message);
                 return Ok(new { ok = false });
             }
         }

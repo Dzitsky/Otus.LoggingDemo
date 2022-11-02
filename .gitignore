@@ -339,3 +339,6 @@ ASALocalRun/
 .localhistory/
 
 .vscode/
+
+# SEQ folder
+seq-data

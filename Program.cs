@@ -31,7 +31,9 @@ namespace Otus.LoggingDemo
                         .ReadFrom.Configuration(context.Configuration)
                         .Enrich.FromLogContext()
                         .WriteTo.Console()
-
+                        
+                        //.WriteTo.EventLog("Otus", manageEventSource: true)
+                
                         .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
                         {
 
